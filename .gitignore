@@ -1,0 +1,14 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+
+# Virtual Enviroment
+.venv/
+
+# Visual Studio Code
+.vscode/
+
+# Session File
+*.session
+
+# Config File
+config.ini
