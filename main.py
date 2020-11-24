@@ -110,21 +110,15 @@ class Prompt(cmd.Cmd):
 			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Sending {count} messages ....")
 			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Target: {target}")
 			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] File: {file}")
-			bar = Bar("\tProcessing", fill='█', max=count)
 			file = open(file, 'r').read().splitlines()
-			i = 0
+			bar = Bar("\tProcessing", fill='█', max=count*len(file))
 			try:
 				for c in range(count):
-					try:
-						self.client.send_message(target, file[i])
-						i += 1
-						bar.next()
-					except IndexError:
-						i = 0
-						self.client.send_message(target, file[i])
+					for i in file:
+						self.client.send_message(target, i)
 						bar.next()
 			except ChatWriteForbiddenError: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Can't send message to this chat.")
-			else: print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Done.")
+			else: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Done.")
 			bar.finish()
 		arg = shlex.split(arg)
 		parser = ArgumentParser(prog="exit", add_help=False, usage=__doc__)
