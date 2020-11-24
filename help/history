@@ -1,0 +1,12 @@
+
+{Style.UNDERLINE}{Style.BRIGHT}Name{Style.RESET_ALL}{Style.END}:
+  Show commands history
+
+{Style.UNDERLINE}{Style.BRIGHT}Usage{Style.RESET_ALL}{Style.END}:
+  history [OPTIONS]
+
+{Style.UNDERLINE}{Style.BRIGHT}Options{Style.RESET_ALL}{Style.END}:
+  -c                    Clear history file.
+  -h --help             Show this help message.
+  -v --version          Show program's version number.
+

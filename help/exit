@@ -1,0 +1,11 @@
+
+{Style.UNDERLINE}{Style.BRIGHT}Name{Style.RESET_ALL}{Style.END}:
+  Exit from telegram spammer
+
+{Style.UNDERLINE}{Style.BRIGHT}Usage{Style.RESET_ALL}{Style.END}:
+  exit [OPTIONS] <name>
+
+{Style.UNDERLINE}{Style.BRIGHT}Options{Style.RESET_ALL}{Style.END}:
+  -h --help             Show this help message.
+  -v --version          Show program's version number.
+
