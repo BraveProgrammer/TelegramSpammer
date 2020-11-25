@@ -17,8 +17,13 @@ pip3 install -r requirements.txt
 [auth]
 api_id = Your API ID
 api_hash = Your API Hash
+client_count = Your Accounts Count
+
+[client0]
 phone = Your Phone Number
-name = spammer
+name = Name
+
+.....
 ```
 
 # طرز استفاده
@@ -41,7 +46,7 @@ python3 main.py
 | banner  | نمایش بنر                      |
 | help    | نمایش help برای دستور وارد شده |
 
-**نکته**: میتوانید از تب برای کامل کردن دستورات استفاده کنید
+**نکته**: میتوانید از تب برای کامل کردن دستورات استفاده کنید  
 **نکته ۲**: برای کسب اطلاعات بیشتر درباره ی هر دستور از دستور زیر استفاده کنید:
 
 ```bash

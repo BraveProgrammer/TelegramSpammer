@@ -1,6 +1,6 @@
 #!/bin/python3
 
-import argparse, atexit, cmd, configparser, logging, os, random, readline, shlex, sys
+import argparse, atexit, cmd, configparser, os, random, readline, shlex, sys, multiprocessing
 from telethon.tl import functions, types
 from telethon.sync import TelegramClient, events
 from telethon.errors.rpcerrorlist import *
@@ -9,6 +9,21 @@ from utils import *
 
 banner = formatter(open("banner", 'r').read())
 
+config = configparser.ConfigParser()
+config.read("config.ini")
+api_id = config["auth"]["api_id"]
+api_hash = config["auth"]["api_hash"]
+client_count = config["auth"]["client_count"]
+clients = []
+
+for i in range(int(client_count)):
+	exec(f"client{i}_phone = config['client{i}']['phone']")
+	exec(f"client{i}_name = config['client{i}']['name']")
+	print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Client {i} Started.")
+	exec(f"client{i} = TelegramClient(client{i}_name, api_id, api_hash)")
+	exec(f"client{i}.start(client{i}_phone)")
+	exec(f"clients.append(client{i})")
+
 class ArgumentParser(argparse.ArgumentParser):
 	def format_help(self): return self.usage
 
@@ -16,14 +31,6 @@ class Prompt(cmd.Cmd):
 	def __init__(self):
 		self.intro = banner
 		self.prompt = Style.BRIGHT + "\033[4m" + "tlsp" + "\033[0m" + Style.RESET_ALL + " > "
-		self.config = configparser.ConfigParser()
-		self.config.read("config.ini")
-		self.api_id = self.config["auth"]["api_id"]
-		self.api_hash = self.config["auth"]["api_hash"]
-		self.phone = self.config["auth"]["phone"]
-		self.name = self.config["auth"]["name"]
-		self.client = TelegramClient(self.name, self.api_id, self.api_hash)
-		self.client.start(self.phone)
 		self.path = ''
 		super().__init__()
 	def cmdloop(self, intro=None):
@@ -107,17 +114,23 @@ class Prompt(cmd.Cmd):
 	def do_sendtext(self, arg):
 		__doc__ = formatter(open("help/sendtext", 'r').read())
 		def _sendtext(target, count, file):
-			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Sending {count} messages ....")
+			file = open(file, 'r').read().splitlines()
+			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Sending {count*len(file)} messages ....")
 			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Target: {target}")
 			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] File: {file}")
-			file = open(file, 'r').read().splitlines()
 			bar = Bar("\tProcessing", fill='█', max=count*len(file))
+			ct = 0
 			try:
 				for c in range(count):
-					for i in file:
-						self.client.send_message(target, i)
-						bar.next()
-			except ChatWriteForbiddenError: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Can't send message to this chat.")
+						for i in file:
+							for cl in clients:
+								if ct == count*len(file): break
+								entity = cl.get_entity(target)
+								cl(functions.messages.SendMessageRequest(peer=entity, message=i))
+								bar.next()
+								ct += 1
+			except KeyboardInterrupt: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Interrupted.")
+			except: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Can't send message to this chat.")
 			else: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Done.")
 			bar.finish()
 		arg = shlex.split(arg)
@@ -132,7 +145,6 @@ class Prompt(cmd.Cmd):
 			_sendtext(args.target, args.count, args.file)
 		except SystemExit: pass
 		except EOFError: pass
-		except KeyboardInterrupt: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Interrupted.")
 	def do_help(self, arg):
 		__doc__ = formatter(open("help/help", 'r').read())
 		def _help(name):
@@ -170,7 +182,7 @@ def main():
 		readline.read_history_file(histfile)
 		h_len = readline.get_current_history_length()
 	except FileNotFoundError:
-		open(histfile, 'wb').close()
+		open(histfile, "wb").close()
 		h_len = 0
 	atexit.register(save_history, h_len, histfile)
 	prompt = Prompt()
@@ -178,5 +190,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-client = TelegramClient(name, api_id, api_hash)
-client.start(phone)
