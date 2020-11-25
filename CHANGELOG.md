@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.2] 2020-11-25
+
+### Added
+
+- Join and Leave Support
+- Update READMEs
+
 ## [1.1] 2020-11-25
 
 ### Added

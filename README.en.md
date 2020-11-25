@@ -63,12 +63,29 @@ First create a file and write messages you want to send.
 Then use this command to send messages.
 
 ```bash
-sendtext -f file -c count target
+sendtext -f file [-c count] target
 ```
 
 > target: Your Target  
 > -f file: File name that you created  
-> -c count: The number of messages you intend to send
+> -c count: The number of messages you intend to send (Optional)
+
+## Join/Leave chat or channel
+
+```bash
+join ChatID ClientNumber [-p]
+```
+
+> ChatID: That chat or channel you want to join  
+> ClientNumber: That client you want to joins chat  
+> -p: If chat is private use this option. (Optional)
+
+```bash
+leave ChatID ClientNumber
+```
+
+> ChatID: That chat or channel you want to leave  
+> ClientNumber: That client you want to leaves chat  
 
 # Contribute
 Apply to participate in this project through pull requests or send a message to my ID in Telegram.

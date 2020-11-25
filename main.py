@@ -1,6 +1,6 @@
 #!/bin/python3
 
-import argparse, atexit, cmd, configparser, os, random, readline, shlex, sys, multiprocessing
+import argparse, atexit, cmd, configparser, os, random, readline, shlex, sys
 from telethon.tl import functions, types
 from telethon.sync import TelegramClient, events
 from telethon.errors.rpcerrorlist import *
@@ -114,8 +114,9 @@ class Prompt(cmd.Cmd):
 	def do_sendtext(self, arg):
 		__doc__ = formatter(open("help/sendtext", 'r').read())
 		def _sendtext(target, count, file):
+			count *= int(client_count)
 			file = open(file, 'r').read().splitlines()
-			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Sending {count*len(file)} messages ....")
+			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Sending {count*len(file)*int(client_count)} messages .....")
 			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Target: {target}")
 			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] File: {file}")
 			bar = Bar("\tProcessing", fill='█', max=count*len(file))
@@ -143,6 +144,47 @@ class Prompt(cmd.Cmd):
 		try:
 			args = parser.parse_args(arg)
 			_sendtext(args.target, args.count, args.file)
+		except SystemExit: pass
+		except EOFError: pass
+	def do_join(self, arg):
+		__doc__ = formatter(open("help/join", 'r').read())
+		def _join(id, client_num, private):
+			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Joining {id} .....")
+			try:
+				if private: exec(f"client{client_num}(functions.messages.ImportChatInviteRequest('{id}'))")
+				else: exec(f"client{client_num}(functions.channels.JoinChannelRequest('{id}'))")
+			except KeyboardInterrupt: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Interrupted.")
+			except: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}You can't join this chat.")
+			else: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Done.")
+		arg = shlex.split(arg)
+		parser = ArgumentParser(prog="exit", add_help=False, usage=__doc__)
+		parser.add_argument("-v", "--version", action="version", version="%(prog)s 1.0")
+		parser.add_argument("-h", "--help", action="help", default=argparse.SUPPRESS)
+		parser.add_argument("-p", "--private", action="store_true")
+		parser.add_argument("id")
+		parser.add_argument("client_num")
+		try:
+			args = parser.parse_args(arg)
+			_join(args.id, args.client_num, args.private)
+		except SystemExit: pass
+		except EOFError: pass
+	def do_leave(self, arg):
+		__doc__ = formatter(open("help/leave", 'r').read())
+		def _leave(id, client_num):
+			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Leaving {id} .....")
+			try: exec(f"client{client_num}(functions.channels.LeaveChannelRequest('{id}'))")
+			except KeyboardInterrupt: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Interrupted.")
+			except: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}You can't leave this chat.")
+			else: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Done.")
+		arg = shlex.split(arg)
+		parser = ArgumentParser(prog="exit", add_help=False, usage=__doc__)
+		parser.add_argument("-v", "--version", action="version", version="%(prog)s 1.0")
+		parser.add_argument("-h", "--help", action="help", default=argparse.SUPPRESS)
+		parser.add_argument("id")
+		parser.add_argument("client_num")
+		try:
+			args = parser.parse_args(arg)
+			_leave(args.id, args.client_num)
 		except SystemExit: pass
 		except EOFError: pass
 	def do_help(self, arg):

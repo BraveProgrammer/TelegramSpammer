@@ -1,14 +1,13 @@
 
 {Style.UNDERLINE}{Style.BRIGHT}Name{Style.RESET_ALL}{Style.END}:
-  Send text
+  Leave a chat or channel
 
 {Style.UNDERLINE}{Style.BRIGHT}Usage{Style.RESET_ALL}{Style.END}:
-  sendtext [OPTIONS] <target>
+  leave [OPTIONS] <id> <client_num>
 
 {Style.UNDERLINE}{Style.BRIGHT}Options{Style.RESET_ALL}{Style.END}:
-  <target>              Target to send message.
-  -f --file <filename>  Messages file.
-  -c --count <count>    Count of messages.
+  <id>                  Chat or Channel ID.
+  <client_num>          Client Number.
   -h --help             Show this help message.
   -v --version          Show program's version number.
 
