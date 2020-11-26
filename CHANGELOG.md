@@ -4,6 +4,22 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.3] 2020-11-26
+
+### Added
+
+- updater script
+
+### Changed
+
+- Use English README as default
+
+## [1.2.1] 2020-11-26
+
+### Changed
+
+- fix bugs and improvement
+
 ## [1.2] 2020-11-25
 
 ### Added

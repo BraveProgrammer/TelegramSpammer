@@ -1,17 +1,17 @@
-# تلگرام اسپمر
-تلگرام اسپمر ابزاری است که شما را در اسپم کردن و کارهای دیگر در تلگرام کمک میکند.
+# Telegram Spammer
+![Telegram Spammer](preview.png)
+Telegram spammer is a tool helps you in spam and other thing in telegram.
 
 # نصب
-بعد از کلون کردن باید کتابخانه های پایتون را نصب کنید.
+After you cloned the repository install needed libraries.
 
 ```bash
 pip3 install -r requirements.txt
 ```
 
-بعد از نصب کتابخانه ها ابتدا باید در سایت [My Telegram](https://my.telegram.org/auth) وارد شوید و احراز هویت کنید.
-سپس وارد قسمت API Development شوید فیلد ها را پر کنید.
+After installing libraries go to [My Telegram Website](https://my.telegram.org/auth) and login. then go to `API Development` and fill the fields and create your app.
 
-سپس فایل **config.ini** را ایجاد کنید و مقادیر را جایگزین کنید:
+Then create **config.ini** file and replace your values:
 
 ```ini
 [auth]
@@ -26,70 +26,70 @@ name = Name
 .....
 ```
 
-# طرز استفاده
+# Usage
 
-وارد برنامه شوید.
+Run program.
 
 ```bash
 python3 main.py
 ```
 
-برنامه دستورات مختلفی دارد.
+program has different commands
 
-*دستورات ساده:*
+*Simple commands:*
 
-| دستور | توضیحات                          |
-| ------- | ------------------------------ |
-| exit    | خروج از برنامه                 |
-| clear   | پاک کردن صفحه                  |
-| history | نمایش دستورات استفاده شده      |
-| banner  | نمایش بنر                      |
-| help    | نمایش help برای دستور وارد شده |
+| command | description           |
+| ------- | --------------------- |
+| exit    | Exit from program     |
+| clear   | Clear the screen      |
+| history | Show commands history |
+| banner  | Show banner           |
+| help    | Show commands help    |
 
-**نکته**: میتوانید از تب برای کامل کردن دستورات استفاده کنید  
-**نکته ۲**: برای کسب اطلاعات بیشتر درباره ی هر دستور از دستور زیر استفاده کنید:
+**Note:** You can use TAB for completion
+**Note2:** Use the following commands for more information:
 
 ```bash
-help دستور
+help command
 ```
 یا
 ```bash
-دستور -h
+command -h
 ```
 
-## ارسال پیام متنی
+## Send text messages
 
-ابتدا یک فایل از پیام هایی که میخواهید ارسال کنید درست کنید.
+First create a file and write messages you want to send.
 
-سپس در برنامه با استفاده از دستور زیر میتوانید پیام انبوه ارسال کنید.
+Then use this command to send messages.
 
 ```bash
 sendtext -f file [-c count] target
 ```
 
-> target: تارگت  
-> -f file: فایلی که پیام ها را در ان نوشتید  
-> -c count: تعداد تکرار (پیام های درون فایل هرکدام حداقل یک بار ارسال خواهند شد)  
+> target: Your Target  
+> -f file: File name that you created  
+> -c count: The number of messages you intend to send (Optional)
 
-## عضو/لفت دادن از گروه یا کانال
+## Join/Leave chat or channel
 
 ```bash
 join ChatID ClientNumber [-p]
 ```
 
-> ChatID: آیدی چتی که میخواهید در آن عضو شوید.  
-> ClientNumber: شماره اکانتی که میخواهید با آن عضو شوید.  
-> -p: اگر چت خصوصی است از این گزینه استفاده کنید (اختیاری)
+> ChatID: That chat or channel you want to join  
+> ClientNumber: That client you want to joins chat  
+> -p: If chat is private use this option. (Optional)
 
 ```bash
 leave ChatID ClientNumber
 ```
 
-> ChatID: آیدی چتی که میخواهید از‌ آن لفت بدهید.  
-> ClientNumber: شماره اکانتی که میخواهید با آن لفت بدهید.
+> ChatID: That chat or channel you want to leave  
+> ClientNumber: That client you want to leaves chat  
 
-# مشارکت
-برای مشارکت در این پروژه از طرق pull requests اقدام کنید یا به [آیدی](https://t.me/BraveProgrammer) من در تلگرام پیام بدهید.
+# Contribute
+Apply to participate in this project through pull requests or send a message to my ID in Telegram.
 
-# حمایت مالی
+# Donate
 Bitcoin: 1GKiThh6AaAj8Y1TEbwgC6cvrD82UyWDFk

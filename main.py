@@ -114,7 +114,7 @@ class Prompt(cmd.Cmd):
 	def do_sendtext(self, arg):
 		__doc__ = formatter(open("help/sendtext", 'r').read())
 		def _sendtext(target, count, file):
-			count *= int(client_count)s
+			count *= int(client_count)
 			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Sending {count*len(file)*int(client_count)} messages .....")
 			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Target: {target}")
 			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] File: {file}")
@@ -134,7 +134,7 @@ class Prompt(cmd.Cmd):
 								bar.next()
 								ct += 1
 			except KeyboardInterrupt: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Interrupted.")
-			#except: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Can't send message to this chat.")
+			except: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Can't send message to this chat.")
 			else: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Done.")
 			bar.finish()
 		arg = shlex.split(arg)
