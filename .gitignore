@@ -12,3 +12,6 @@ __pycache__/
 
 # Config File
 config.ini
+
+# Message File
+msg

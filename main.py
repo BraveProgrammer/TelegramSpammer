@@ -114,24 +114,27 @@ class Prompt(cmd.Cmd):
 	def do_sendtext(self, arg):
 		__doc__ = formatter(open("help/sendtext", 'r').read())
 		def _sendtext(target, count, file):
-			count *= int(client_count)
-			file = open(file, 'r').read().splitlines()
+			count *= int(client_count)s
 			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Sending {count*len(file)*int(client_count)} messages .....")
 			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Target: {target}")
 			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] File: {file}")
+			file = open(file, 'r').read().splitlines()
 			bar = Bar("\tProcessing", fill='█', max=count*len(file))
 			ct = 0
+			check = False
 			try:
 				for c in range(count):
 						for i in file:
 							for cl in clients:
 								if ct == count*len(file): break
-								entity = cl.get_entity(target)
+								if not check:
+									entity = cl.get_entity(target)
+									check = True
 								cl(functions.messages.SendMessageRequest(peer=entity, message=i))
 								bar.next()
 								ct += 1
 			except KeyboardInterrupt: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Interrupted.")
-			except: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Can't send message to this chat.")
+			#except: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Can't send message to this chat.")
 			else: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Done.")
 			bar.finish()
 		arg = shlex.split(arg)
