@@ -2,7 +2,7 @@
 ![Telegram Spammer](preview.png)
 Telegram spammer is a tool helps you in spam and other thing in telegram.
 
-# نصب
+# Install
 After you cloned the repository install needed libraries.
 
 ```bash
@@ -24,6 +24,14 @@ phone = Your Phone Number
 name = Name
 
 .....
+```
+
+# Update
+
+To update Telegram Spammer run `update.sh` script.
+
+```bash
+sh update.sh
 ```
 
 # Usage
