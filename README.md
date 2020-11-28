@@ -60,7 +60,7 @@ program has different commands
 ```bash
 help command
 ```
-یا
+or
 ```bash
 command -h
 ```
@@ -77,7 +77,7 @@ sendtext -f file [-c count] target
 
 > target: Your Target  
 > -f file: File name that you created  
-> -c count: The number of messages you intend to send (Optional)
+> -c count: The number of messages you want to send (Optional)
 
 ## Join/Leave chat or channel
 
@@ -95,6 +95,16 @@ leave ChatID ClientNumber
 
 > ChatID: That chat or channel you want to leave  
 > ClientNumber: That client you want to leaves chat  
+
+## Report
+
+```bash
+report ID Type [-c count]
+```
+
+> ID: That username you want to report.  
+> Type: the report types are: port, spam, copyright, childabuse, violence and geoirrelevant.  
+> -c count: count of reports.
 
 # Contribute
 Apply to participate in this project through pull requests or send a message to my ID in Telegram.

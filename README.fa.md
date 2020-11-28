@@ -97,6 +97,16 @@ leave ChatID ClientNumber
 > ChatID: آیدی چتی که میخواهید از‌ آن لفت بدهید.  
 > ClientNumber: شماره اکانتی که میخواهید با آن لفت بدهید.
 
+## ریپورت
+
+```bash
+report ID Type [-c count]
+```
+
+> ID: یوزرنیمی که قصد ریپورت آن را دارید.  
+> Type: انواع ریپورت عبارتند از: port, spam, copyright, childabuse, violence and geoirrelevant.  
+> -c count: تعداد ریپورت.
+
 # مشارکت
 برای مشارکت در این پروژه از طرق pull requests اقدام کنید یا به [آیدی](https://t.me/BraveProgrammer) من در تلگرام پیام بدهید.
 

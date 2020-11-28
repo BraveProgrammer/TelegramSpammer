@@ -6,6 +6,7 @@ from telethon.sync import TelegramClient, events
 from telethon.errors.rpcerrorlist import *
 from progress.bar import Bar
 from utils import *
+import time
 
 banner = formatter(open("banner", 'r').read())
 
@@ -17,12 +18,13 @@ client_count = config["auth"]["client_count"]
 clients = []
 
 for i in range(int(client_count)):
+	print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Starting Client {i} .....")
 	exec(f"client{i}_phone = config['client{i}']['phone']")
 	exec(f"client{i}_name = config['client{i}']['name']")
-	print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Client {i} Started.")
 	exec(f"client{i} = TelegramClient(client{i}_name, api_id, api_hash)")
 	exec(f"client{i}.start(client{i}_phone)")
 	exec(f"clients.append(client{i})")
+	print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Client {i} Started.")
 
 class ArgumentParser(argparse.ArgumentParser):
 	def format_help(self): return self.usage
@@ -119,23 +121,26 @@ class Prompt(cmd.Cmd):
 			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Target: {target}")
 			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] File: {file}")
 			file = open(file, 'r').read().splitlines()
-			bar = Bar("\tProcessing", fill='█', max=count*len(file))
+			bar = Bar("\tProcessing", fill='█', max=count*len(file)*int(client_count))
 			ct = 0
 			check = False
 			try:
+				t = time.time()
 				for c in range(count):
-						for i in file:
-							for cl in clients:
-								if ct == count*len(file): break
-								if not check:
-									entity = cl.get_entity(target)
-									check = True
-								cl(functions.messages.SendMessageRequest(peer=entity, message=i))
-								bar.next()
-								ct += 1
+					for i in file:
+						for cl in clients:
+							if ct == count*len(file)*int(client_count): break
+							if not check:
+								entity = cl.get_entity(target)
+								check = True
+							cl(functions.messages.SendMessageRequest(peer=entity, message=i))
+							bar.next()
+							ct += 1
 			except KeyboardInterrupt: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Interrupted.")
 			except: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Can't send message to this chat.")
-			else: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Done.")
+			else:
+				print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Time: {time.time() - t}")
+				print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Done.")
 			bar.finish()
 		arg = shlex.split(arg)
 		parser = ArgumentParser(prog="exit", add_help=False, usage=__doc__)
@@ -147,6 +152,46 @@ class Prompt(cmd.Cmd):
 		try:
 			args = parser.parse_args(arg)
 			_sendtext(args.target, args.count, args.file)
+		except SystemExit: pass
+		except EOFError: pass
+	def do_report(self, arg):
+		__doc__ = formatter(open("help/report", 'r').read())
+		def _report(target, count, type):
+			count *= int(client_count)
+			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Reporting {count} Times .....")
+			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Target: {target}")
+			print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Type: {type}")
+			bar = Bar("\tProcessing", fill='█', max=count*int(client_count))
+			ct = 0
+			check = False
+			try:
+				t = time.time()
+				for c in range(count):
+					for cl in clients:
+						if ct == count*int(client_count): break
+						if not check:
+							entity = cl.get_entity(target)
+							check = True
+						cl(functions.account.ReportPeerRequest(peer=entity, reason=rep_types[type]()))
+						bar.next()
+						ct += 1
+			except KeyboardInterrupt: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Interrupted.")
+			except: print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] {Fore.RED}Can't report this peer.")
+			else:
+				print(f"\n{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Time: {time.time() - t}")
+				print(f"{Fore.GREEN}[{Fore.WHITE}+{Fore.GREEN}] Done.")
+			bar.finish()
+		arg = shlex.split(arg)
+		rep_types = {"porn": types.InputReportReasonPornography, "spam": types.InputReportReasonSpam, "copyright": types.InputReportReasonCopyright, "childabuse": types.InputReportReasonChildAbuse, "violence": types.InputReportReasonViolence, "geoirrelevant": types.InputReportReasonGeoIrrelevant}
+		parser = ArgumentParser(prog="exit", add_help=False, usage=__doc__)
+		parser.add_argument("-v", "--version", action="version", version="%(prog)s 1.0")
+		parser.add_argument("-h", "--help", action="help", default=argparse.SUPPRESS)
+		parser.add_argument("-c", "--count", type=int, default=1)
+		parser.add_argument("target")
+		parser.add_argument("type", choices=rep_types.keys())
+		try:
+			args = parser.parse_args(arg)
+			_report(args.target, args.count, args.type)
 		except SystemExit: pass
 		except EOFError: pass
 	def do_join(self, arg):

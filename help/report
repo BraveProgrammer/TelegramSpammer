@@ -1,0 +1,14 @@
+
+{Style.UNDERLINE}{Style.BRIGHT}Name{Style.RESET_ALL}{Style.END}:
+  Report a channel or chat
+
+{Style.UNDERLINE}{Style.BRIGHT}Usage{Style.RESET_ALL}{Style.END}:
+  report [OPTIONS] <target> <type>
+
+{Style.UNDERLINE}{Style.BRIGHT}Options{Style.RESET_ALL}{Style.END}:
+  <target>              Target to report.
+  <type>                porn|spam|copyright|childabuse|violence|geoirrelevant
+  -c --count <count>    Count of reports.
+  -h --help             Show this help message.
+  -v --version          Show program's version number.
+

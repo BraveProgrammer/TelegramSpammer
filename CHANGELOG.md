@@ -4,11 +4,17 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.4] 2020-11-28
+
+### Added
+
+- Report feature
+
 ## [1.3] 2020-11-26
 
 ### Added
 
-- updater script
+- Updater script
 
 ### Changed
 
@@ -18,7 +24,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
-- fix bugs and improvement
+- Fix bugs and improvement
 
 ## [1.2] 2020-11-25
 
