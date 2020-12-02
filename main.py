@@ -146,9 +146,9 @@ class Prompt(cmd.Cmd):
 			try:
 				if private: exec(f"client{client_num}(functions.messages.ImportChatInviteRequest('{id}'))")
 				else: exec(f"client{client_num}(functions.channels.JoinChannelRequest('{id}'))")
-			except KeyboardInterrupt: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}Interrupted.{FORE_WHITE}")
-			except: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}You can't join this chat.")
-			else: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Done.")
+			except KeyboardInterrupt: print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}Interrupted.{FORE_WHITE}")
+			except: print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}You can't join this chat.")
+			else: print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Done.")
 		arg = shlex.split(arg)
 		parser = ArgumentParser(prog="exit", add_help=False, usage=__doc__)
 		parser.add_argument("-v", "--version", action="version", version="%(prog)s 1.0")
@@ -167,9 +167,9 @@ class Prompt(cmd.Cmd):
 			print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Leaving {id} .....")
 			try: exec(f"client{client_num}.delete_dialog('{id}')")
 			except KeyboardInterrupt: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}Interrupted.{FORE_WHITE}")
-			except UserNotParticipantError: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}You are not a member of this chat.{FORE_WHITE}")
-			except: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}You can't leave this chat.")
-			else: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Done.")
+			except UserNotParticipantError: print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}You are not a member of this chat.{FORE_WHITE}")
+			except: print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}You can't leave this chat.")
+			else: print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Done.")
 		arg = shlex.split(arg)
 		parser = ArgumentParser(prog="exit", add_help=False, usage=__doc__)
 		parser.add_argument("-v", "--version", action="version", version="%(prog)s 1.0")
@@ -179,6 +179,44 @@ class Prompt(cmd.Cmd):
 		try:
 			args = parser.parse_args(arg)
 			_leave(args.id, args.client_num)
+		except SystemExit: pass
+		except EOFError: pass
+	def do_block(self, arg):
+		__doc__ = formatter(open("help/block", 'r').read())
+		def _block(id, client_num):
+			print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Blocking {id} .....")
+			try: exec(f"client{client_num}(functions.contacts.BlockRequest('{id}'))")
+			except KeyboardInterrupt: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}Interrupted.{FORE_WHITE}")
+			except: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}You can't block this user.")
+			else: print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Done.")
+		arg = shlex.split(arg)
+		parser = ArgumentParser(prog="exit", add_help=False, usage=__doc__)
+		parser.add_argument("-v", "--version", action="version", version="%(prog)s 1.0")
+		parser.add_argument("-h", "--help", action="help", default=argparse.SUPPRESS)
+		parser.add_argument("id")
+		parser.add_argument("client_num")
+		try:
+			args = parser.parse_args(arg)
+			_block(args.id, args.client_num)
+		except SystemExit: pass
+		except EOFError: pass
+	def do_unblock(self, arg):
+		__doc__ = formatter(open("help/unblock", 'r').read())
+		def _block(id, client_num):
+			print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Unblocking {id} .....")
+			try: exec(f"client{client_num}(functions.contacts.UnblockRequest('{id}'))")
+			except KeyboardInterrupt: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}Interrupted.{FORE_WHITE}")
+			except: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}You can't unblock this user.")
+			else: print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Done.")
+		arg = shlex.split(arg)
+		parser = ArgumentParser(prog="exit", add_help=False, usage=__doc__)
+		parser.add_argument("-v", "--version", action="version", version="%(prog)s 1.0")
+		parser.add_argument("-h", "--help", action="help", default=argparse.SUPPRESS)
+		parser.add_argument("id")
+		parser.add_argument("client_num")
+		try:
+			args = parser.parse_args(arg)
+			_block(args.id, args.client_num)
 		except SystemExit: pass
 		except EOFError: pass
 	def do_help(self, arg):

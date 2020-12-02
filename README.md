@@ -101,8 +101,8 @@ join ChatID ClientNumber [-p]
 leave ChatID ClientNumber
 ```
 
-> ChatID: That chat or channel you want to leave  
-> ClientNumber: That client you want to leaves chat  
+> ChatID: That chat or channel you want to leave.  
+> ClientNumber: That client you want to leaves chat.  
 
 ## Report
 
@@ -113,6 +113,22 @@ report ID Type [-c count]
 > ID: That username you want to report.  
 > Type: the report types are: port, spam, copyright, childabuse, violence and geoirrelevant.  
 > -c count: count of reports.
+
+# Block/Unblock
+
+```bash
+block ID Client_Number
+```
+
+> ID: That username you want to block.  
+> ClientNumber: That client you want to blocks someone.  
+
+```bash
+unblock ID Client_Number
+```
+
+> ID: That username you want to unblock.  
+> ClientNumber: That client you want to unblocks someone.  
 
 # Contribute
 Apply to participate in this project through pull requests or send a message to my ID in Telegram.

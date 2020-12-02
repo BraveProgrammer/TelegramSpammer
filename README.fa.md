@@ -115,6 +115,22 @@ report ID Type [-c count]
 > Type: انواع ریپورت عبارتند از: port, spam, copyright, childabuse, violence and geoirrelevant.  
 > -c count: تعداد ریپورت.
 
+# بلاک/آنبلاک
+
+```bash
+block ID Client_Number
+```
+
+> ID: آیدی کسی که میخواهید بلاک کنید.  
+> ClientNumber: شماره اکانتی که میخواهید با آن بلاک کنید.
+
+```bash
+unblock ID Client_Number
+```
+
+> ID: آیدی کسی که میخواهید آنبلاک کنید.  
+> ClientNumber: شماره اکانتی که میخواهید با آن آنبلاک کنید.  
+
 # مشارکت
 برای مشارکت در این پروژه از طرق pull requests اقدام کنید یا به [آیدی](https://t.me/BraveProgrammer) من در تلگرام پیام بدهید.
 
