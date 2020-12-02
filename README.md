@@ -9,6 +9,14 @@ After you cloned the repository install needed libraries.
 pip3 install -r requirements.txt
 ```
 
+Then run this command:
+
+```bash
+python3 setup.py build_ext --inplace
+```
+
+**Note:** If you got some errors don't worry this command is for speeding up the program. if you got some errors, program will work but slower.
+
 After installing libraries go to [My Telegram Website](https://my.telegram.org/auth) and login. then go to `API Development` and fill the fields and create your app.
 
 Then create **config.ini** file and replace your values:

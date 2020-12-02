@@ -10,5 +10,5 @@
       /____/ .___/\__,_/_/ /_/ /_/_/ /_/ /_/\___/_/     
           /_/                                           {Fore.WHITE}
 
-{Back.CYAN}=========== Author: @BraveProgrammer ==========={Back.RESET}
-{Back.RED}      I'm Not Responsible For your Actions      {Back.RESET}
+{Back.CYAN}=========== Author: @BraveProgrammer ==========={RESET}
+{Back.RED}      I'm Not Responsible For your Actions      {RESET}

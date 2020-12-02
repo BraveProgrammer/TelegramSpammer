@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.5] 2020-12-02
+
+### Changed
+
+- Double the speed of sendtext and report
+
 ## [1.4] 2020-11-28
 
 ### Added

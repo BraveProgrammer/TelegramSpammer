@@ -47,7 +47,7 @@ for i in range(int(client_count)):
 	print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Client {i} Started.")
 
 def _sendtext_thread(count, file, clients, target, t, entity):
-	bar = Bar("\tProcessing"+FORE_WHITE, fill='█', max=count*len(file)*int(client_count))
+	cdef object bar = Bar("\tProcessing"+FORE_WHITE, fill='█', max=count*len(file)*int(client_count))
 	try:
 		for c in range(count):
 			for i in file:
@@ -64,8 +64,8 @@ def _sendtext_thread(count, file, clients, target, t, entity):
 		print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Done.")
 
 def _report_thread(count, clients, target, t, type, entity):
-	bar = Bar("\tProcessing"+FORE_WHITE, fill='█', max=count*int(client_count))
-	rep_types = {"porn": types.InputReportReasonPornography, "spam": types.InputReportReasonSpam, "copyright": types.InputReportReasonCopyright, "childabuse": types.InputReportReasonChildAbuse, "violence": types.InputReportReasonViolence, "geoirrelevant": types.InputReportReasonGeoIrrelevant}
+	cdef object bar = Bar("\tProcessing"+FORE_WHITE, fill='█', max=count*int(client_count))
+	cdef dict rep_types = {"porn": types.InputReportReasonPornography, "spam": types.InputReportReasonSpam, "copyright": types.InputReportReasonCopyright, "childabuse": types.InputReportReasonChildAbuse, "violence": types.InputReportReasonViolence, "geoirrelevant": types.InputReportReasonGeoIrrelevant}
 	try:
 		for c in range(count):
 			for cl in clients:

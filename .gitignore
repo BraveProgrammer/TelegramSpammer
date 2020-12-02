@@ -1,5 +1,8 @@
 # Byte-compiled / optimized / DLL files
 __pycache__/
+build/
+*.c
+*.so
 
 # Virtual Enviroment
 .venv/
@@ -9,6 +12,7 @@ __pycache__/
 
 # Session File
 *.session
+*.session-journal
 
 # Config File
 config.ini

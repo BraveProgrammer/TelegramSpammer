@@ -1,11 +1,11 @@
 
-{Style.UNDERLINE}{Style.BRIGHT}Name{Style.RESET_ALL}{Style.END}:
+{Style.UNDERLINE}{Style.BRIGHT}Name{RESET}:
   Report a channel or chat
 
-{Style.UNDERLINE}{Style.BRIGHT}Usage{Style.RESET_ALL}{Style.END}:
+{Style.UNDERLINE}{Style.BRIGHT}Usage{RESET}:
   report [OPTIONS] <target> <type>
 
-{Style.UNDERLINE}{Style.BRIGHT}Options{Style.RESET_ALL}{Style.END}:
+{Style.UNDERLINE}{Style.BRIGHT}Options{RESET}:
   <target>              Target to report.
   <type>                porn|spam|copyright|childabuse|violence|geoirrelevant
   -c --count <count>    Count of reports.

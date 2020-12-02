@@ -1,11 +1,11 @@
 
-{Style.UNDERLINE}{Style.BRIGHT}Name{Style.RESET_ALL}{Style.END}:
+{Style.UNDERLINE}{Style.BRIGHT}Name{RESET}:
   Send text
 
-{Style.UNDERLINE}{Style.BRIGHT}Usage{Style.RESET_ALL}{Style.END}:
+{Style.UNDERLINE}{Style.BRIGHT}Usage{RESET}:
   sendtext [OPTIONS] <target>
 
-{Style.UNDERLINE}{Style.BRIGHT}Options{Style.RESET_ALL}{Style.END}:
+{Style.UNDERLINE}{Style.BRIGHT}Options{RESET}:
   <target>              Target to send message.
   -f --file <filename>  Messages file.
   -c --count <count>    Count of messages.

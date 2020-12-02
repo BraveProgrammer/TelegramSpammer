@@ -1,11 +1,11 @@
 
-{Style.UNDERLINE}{Style.BRIGHT}Name{Style.RESET_ALL}{Style.END}:
+{Style.UNDERLINE}{Style.BRIGHT}Name{RESET}:
   Join a chat or channel
 
-{Style.UNDERLINE}{Style.BRIGHT}Usage{Style.RESET_ALL}{Style.END}:
+{Style.UNDERLINE}{Style.BRIGHT}Usage{RESET}:
   join [OPTIONS] <id> <client_num>
 
-{Style.UNDERLINE}{Style.BRIGHT}Options{Style.RESET_ALL}{Style.END}:
+{Style.UNDERLINE}{Style.BRIGHT}Options{RESET}:
   <id>                  Chat or Channel ID.
   <client_num>          Client Number.
   -p --private          Does chat is private?
