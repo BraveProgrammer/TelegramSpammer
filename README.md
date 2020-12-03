@@ -130,6 +130,15 @@ unblock ID Client_Number
 > ID: That username you want to unblock.  
 > ClientNumber: That client you want to unblocks someone.  
 
+# Delete account
+
+```bash
+deleteaccount client_num reason
+```
+
+> client_num: That client you want to delete.  
+> reason: The reason why you want to delete the account.  
+
 # Contribute
 Apply to participate in this project through pull requests or send a message to my ID in Telegram.
 

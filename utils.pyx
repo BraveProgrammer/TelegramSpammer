@@ -1,6 +1,6 @@
 import argparse, atexit, cmd, configparser, os, readline, shlex, sys, time
 from telethon.tl import functions, types
-from telethon.sync import TelegramClient, events
+from telethon.sync import TelegramClient
 from telethon.errors.rpcerrorlist import *
 from progress.bar import Bar
 

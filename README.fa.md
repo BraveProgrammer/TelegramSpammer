@@ -131,6 +131,15 @@ unblock ID Client_Number
 > ID: آیدی کسی که میخواهید آنبلاک کنید.  
 > ClientNumber: شماره اکانتی که میخواهید با آن آنبلاک کنید.  
 
+# دلیت اکانت
+
+```bash
+deleteaccount client_num reason
+```
+
+> client_num: شماره اکانتی که میخواهید آن را دلیت کنید.  
+> reason: دلیلی که بخاطر آن میخواهید اکانت را دلیت کنید.  
+
 # مشارکت
 برای مشارکت در این پروژه از طرق pull requests اقدام کنید یا به [آیدی](https://t.me/BraveProgrammer) من در تلگرام پیام بدهید.
 

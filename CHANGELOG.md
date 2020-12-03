@@ -4,7 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
-## [1.4] 2020-12-02
+## [1.7] 2020-12-03
+
+### Added
+
+- Delete account feature
+
+## [1.6] 2020-12-02
 
 ### Added
 

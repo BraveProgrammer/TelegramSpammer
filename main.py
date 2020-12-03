@@ -219,6 +219,37 @@ class Prompt(cmd.Cmd):
 			_block(args.id, args.client_num)
 		except SystemExit: pass
 		except EOFError: pass
+	def do_deleteaccount(self, arg):
+		__doc__ = formatter(open("help/deleteaccount", 'r').read())
+		def _block(client_num):
+			print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Are you sure (y/n)? {Fore.WHITE}", end='')
+			if input() == "y":
+				print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] if you are sure say yes. {Fore.WHITE}", end='')
+				if input() == "yes":
+					print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] if you are sure say 'I am Sure!'. {Fore.WHITE}", end='')
+					if input() == "I am Sure!":
+						print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Deleting Account {client_num} .....")
+						try:
+							exec(f"client{client_num}(functions.account.DeleteAccountRequest('{reason}'))")
+							exec(f"del client{client_num}")
+							exec(f"del clients[{client_num}]")
+						except KeyboardInterrupt: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}Interrupted.{FORE_WHITE}")
+						except: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}You can't delete this account.")
+						else: print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Done.")
+					else: print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}Cancel.{FORE_WHITE}")
+				else: print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}Cancel.{FORE_WHITE}")
+			else: print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}Cancel.{FORE_WHITE}")
+		arg = shlex.split(arg)
+		parser = ArgumentParser(prog="exit", add_help=False, usage=__doc__)
+		parser.add_argument("-v", "--version", action="version", version="%(prog)s 1.0")
+		parser.add_argument("-h", "--help", action="help", default=argparse.SUPPRESS)
+		parser.add_argument("client_num")
+		parser.add_argument("reason")
+		try:
+			args = parser.parse_args(arg)
+			_block(args.client_num)
+		except SystemExit: pass
+		except EOFError: pass
 	def do_help(self, arg):
 		__doc__ = formatter(open("help/help", 'r').read())
 		def _help(name):
