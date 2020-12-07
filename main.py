@@ -1,7 +1,7 @@
 #!/bin/python3
 
 from utils import *
-from utils import _sendtext_thread, _report_thread
+from utils import _sendtext_thread, _report_thread, _forward_thread
 from multiprocessing import Process
 
 class ArgumentParser(argparse.ArgumentParser):
@@ -113,6 +113,30 @@ class Prompt(cmd.Cmd):
 		try:
 			args = parser.parse_args(arg)
 			_sendtext(args.target, args.count, args.file)
+		except SystemExit: pass
+		except EOFError: pass
+	def do_forward(self, arg):
+		__doc__ = formatter(open("help/forward", 'r').read())
+		def _sendtext(loop, _from, to):
+			print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Forwarding messages .....")
+			print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Loop: {loop}")
+			print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] From: {_from}")
+			print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] To: {to}")
+			entity = client0.get_entity(to)
+			t = time.time()
+			process = Process(target=_forward_thread, args=(loop, clients, t, _from, to, entity))
+			process.start()
+			process.join()
+		arg = shlex.split(arg)
+		parser = ArgumentParser(prog="exit", add_help=False, usage=__doc__)
+		parser.add_argument("-v", "--version", action="version", version="%(prog)s 1.0")
+		parser.add_argument("-h", "--help", action="help", default=argparse.SUPPRESS)
+		parser.add_argument("-l", "--loop", type=int, default=1)
+		parser.add_argument("_from")
+		parser.add_argument("to")
+		try:
+			args = parser.parse_args(arg)
+			_sendtext(args.loop, args._from, args.to)
 		except SystemExit: pass
 		except EOFError: pass
 	def do_report(self, arg):

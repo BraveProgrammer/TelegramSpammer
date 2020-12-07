@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [1.8] 2020-12-07
+
+### Added
+
+- Forward feature
+
 ## [1.7] 2020-12-03
 
 ### Added

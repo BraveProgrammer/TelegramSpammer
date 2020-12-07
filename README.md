@@ -114,7 +114,7 @@ report ID Type [-c count]
 > Type: the report types are: port, spam, copyright, childabuse, violence and geoirrelevant.  
 > -c count: count of reports.
 
-# Block/Unblock
+## Block/Unblock
 
 ```bash
 block ID Client_Number
@@ -130,7 +130,7 @@ unblock ID Client_Number
 > ID: That username you want to unblock.  
 > ClientNumber: That client you want to unblocks someone.  
 
-# Delete account
+## Delete account
 
 ```bash
 deleteaccount client_num reason
@@ -138,6 +138,16 @@ deleteaccount client_num reason
 
 > client_num: That client you want to delete.  
 > reason: The reason why you want to delete the account.  
+
+## Forward
+
+```bash
+forward from to -l loops
+```
+
+> from: That chat you want to forward messages from that.  
+> to: That chat you want to send messages.  
+> loops: count of loops.  
 
 # Contribute
 Apply to participate in this project through pull requests or send a message to my ID in Telegram.

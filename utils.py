@@ -3,6 +3,7 @@ from telethon.tl import functions, types
 from telethon.sync import TelegramClient
 from telethon.errors.rpcerrorlist import *
 from progress.bar import Bar
+from progress.spinner import Spinner
 
 FORE_RED = "\u001b[31m"
 FORE_GREEN = "\u001b[32m"
@@ -47,7 +48,7 @@ for i in range(int(client_count)):
 	print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Client {i} Started.")
 
 def _sendtext_thread(count, file, clients, target, t, entity):
-	bar = Bar("\tProcessing"+FORE_WHITE, fill='█', max=count*len(file)*int(client_count))
+	bar = Bar(FORE_WHITE+"\tProcessing ", fill='█', max=count*len(file)*int(client_count))
 	try:
 		for c in range(count):
 			for i in file:
@@ -64,7 +65,7 @@ def _sendtext_thread(count, file, clients, target, t, entity):
 		print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Done.")
 
 def _report_thread(count, clients, target, t, type, entity):
-	bar = Bar("\tProcessing"+FORE_WHITE, fill='█', max=count*int(client_count))
+	bar = Bar(FORE_WHITE+"\tProcessing ", fill='█', max=count*int(client_count))
 	rep_types = {"porn": types.InputReportReasonPornography, "spam": types.InputReportReasonSpam, "copyright": types.InputReportReasonCopyright, "childabuse": types.InputReportReasonChildAbuse, "violence": types.InputReportReasonViolence, "geoirrelevant": types.InputReportReasonGeoIrrelevant}
 	try:
 		for c in range(count):
@@ -76,6 +77,26 @@ def _report_thread(count, clients, target, t, type, entity):
 		print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Time: {time.time() - t}")
 		print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}Interrupted.{FORE_WHITE}")
 	except: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}Can't report this peer.")
+	else:
+		print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Time: {time.time() - t}")
+		print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Done.")
+
+def _forward_thread(loop, clients, t, _from, to, entity):
+	msg = client0.iter_messages(_from)
+	spinner = Spinner(FORE_WHITE+"\tProcessing ")
+	try:
+		for i in msg:
+			for l in range(0, 20):
+				for cl in clients:
+					cl.send_message(entity, i)
+					spinner.next()
+	except TypeError:
+		print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Time: {time.time() - t}")
+		print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Done.")
+	except KeyboardInterrupt:
+		print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Time: {time.time() - t}")
+		print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}Interrupted.{FORE_WHITE}")
+	except: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}Can't forward this message.")
 	else:
 		print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Time: {time.time() - t}")
 		print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Done.")

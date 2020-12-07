@@ -115,7 +115,7 @@ report ID Type [-c count]
 > Type: انواع ریپورت عبارتند از: port, spam, copyright, childabuse, violence and geoirrelevant.  
 > -c count: تعداد ریپورت.
 
-# بلاک/آنبلاک
+## بلاک/آنبلاک
 
 ```bash
 block ID Client_Number
@@ -131,7 +131,7 @@ unblock ID Client_Number
 > ID: آیدی کسی که میخواهید آنبلاک کنید.  
 > ClientNumber: شماره اکانتی که میخواهید با آن آنبلاک کنید.  
 
-# دلیت اکانت
+## دلیت اکانت
 
 ```bash
 deleteaccount client_num reason
@@ -139,6 +139,16 @@ deleteaccount client_num reason
 
 > client_num: شماره اکانتی که میخواهید آن را دلیت کنید.  
 > reason: دلیلی که بخاطر آن میخواهید اکانت را دلیت کنید.  
+
+## فوروارد
+
+```bash
+forward from to -l loops
+```
+
+> from: چتی که میخواهید پیام ها را از آن فوروارد کنید.  
+> to: چتی که میخواهید پیام ها را به آن ارسال کنید.  
+> loops: تعداد تکرار.  
 
 # مشارکت
 برای مشارکت در این پروژه از طرق pull requests اقدام کنید یا به [آیدی](https://t.me/BraveProgrammer) من در تلگرام پیام بدهید.
