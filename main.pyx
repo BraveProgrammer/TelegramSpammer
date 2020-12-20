@@ -59,8 +59,8 @@ cdef int sendtext(target, count, file):
 	cdef list entities = []
 	try:
 		for c in range(int(client_count)): entities.append((clients[c].get_entity(target)))
-		for c2 in range(int(client_count)):
-			for c in range(count):
+		for c in range(count):
+			for c2 in range(int(client_count)):
 				for i in msg:
 					clients[c2](functions.messages.SendMessageRequest(peer=entities[c2], message=i))
 					bar.next()
@@ -83,8 +83,8 @@ cdef int report(target, count, type):
 	cdef list entities = []
 	try:
 		for c in range(int(client_count)): entities.append((clients[c].get_entity(target)))
-		for c2 in range(int(client_count)):
-			for c in range(count):
+		for c in range(count):
+			for c2 in range(int(client_count)):
 					clients[c2](functions.account.ReportPeerRequest(peer=entities[c2], reason=rep_types[type]()))
 					bar.next()
 	except KeyboardInterrupt:
