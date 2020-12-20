@@ -22,13 +22,13 @@ cdef str STYLE_UNDERLINE = "\u001b[4m"
 banner = f"\n{FORE_GREEN}  ______     __                             \n /_  __/__  / /__  ____ __________ _____ ___            \n  / / / _ \/ / _ \/ __ `/ ___/ __ `/ __ `__ \           \n / / /  __/ /  __/ /_/ / /  / /_/ / / / / / /           \n/_/  \___/_/\___/\__, /_/   \__,_/_/ /_/ /_/            \n        / ___/__/____/__ _____ ___  ____ ___  ___  _____\n        \__ \/ __ \/ __ `/ __ `__ \/ __ `__ \/ _ \/ ___/\n       ___/ / /_/ / /_/ / / / / / / / / / / /  __/ /    \n      /____/ .___/\__,_/_/ /_/ /_/_/ /_/ /_/\___/_/     \n          /_/                                           {FORE_WHITE}\n\n{BACK_CYAN}=========== Author: @BraveProgrammer ==========={RESET}\n{BACK_RED}      I'm Not Responsible For your Actions      {RESET}"
 conf_file = os.path.expanduser("~/.tlsprc")
 
+if sys.argv[1] == "conf": os.system(f"vim {conf_file}"); exit()
+
 config = configparser.ConfigParser()
 config.read(conf_file)
 api_id = config["auth"]["api_id"]
 api_hash = config["auth"]["api_hash"]
 client_count = config["auth"]["client_count"]
-
-if sys.argv[1] == "conf": os.system(f"vim {conf_file}"); exit()
 
 try:
 	proxy_addr = config["proxy"]["addr"]

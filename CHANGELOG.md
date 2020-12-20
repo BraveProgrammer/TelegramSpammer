@@ -4,6 +4,18 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.0.2] 2020-12-20
+
+### Changed
+
+- Fix bug
+
+## [2.0.1] 2020-12-20
+
+### Changed
+
+- Fix bug and add preview.png
+
 ## [2.0] 2020-12-20
 
 ### Changed
