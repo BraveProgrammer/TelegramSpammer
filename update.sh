@@ -25,7 +25,7 @@ update (){
 	git clone https://github.com/BraveProgrammer/TelegramSpammer
 	rm -rf $DIR/TelegramSpammer
 	mv TelegramSpammer $DIR
-	mv config.ini $DIR/TelegramSpammer
+	mv config.ini ~/.tlsprc
 	mv *.session $DIR/TelegramSpammer
 	mv msg $DIR/TelegramSpammer
 	rm -rf ~/.tlsp_update

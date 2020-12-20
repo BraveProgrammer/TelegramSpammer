@@ -15,11 +15,9 @@ Then run this command:
 python3 setup.py build_ext --inplace
 ```
 
-**Note:** If you got some errors don't worry this command is for speeding up the program. if you got some errors, program will work but slower.
-
 After installing libraries go to [My Telegram Website](https://my.telegram.org/auth) and login. then go to `API Development` and fill the fields and create your app.
 
-Then create **config.ini** file and replace your values:
+Then run `python3 run.py conf` to open config file. then edit file:
 
 ```ini
 [auth]
@@ -39,38 +37,7 @@ name = Name
 To update Telegram Spammer run `update.sh` script.
 
 ```bash
-sh update.sh
-```
-
-# Usage
-
-Run program.
-
-```bash
-python3 main.py
-```
-
-program has different commands
-
-*Simple commands:*
-
-| command | description           |
-| ------- | --------------------- |
-| exit    | Exit from program     |
-| clear   | Clear the screen      |
-| history | Show commands history |
-| banner  | Show banner           |
-| help    | Show commands help    |
-
-**Note:** You can use TAB for completion
-**Note2:** Use the following commands for more information:
-
-```bash
-help command
-```
-or
-```bash
-command -h
+bash update.sh
 ```
 
 ## Send text messages
@@ -80,25 +47,25 @@ First create a file and write messages you want to send.
 Then use this command to send messages.
 
 ```bash
-sendtext -f file [-c count] target
+python3 run.py sendtext target count file
 ```
 
 > target: Your Target  
-> -f file: File name that you created  
-> -c count: The number of messages you want to send (Optional)
+> count: The number of messages you want to send.  
+> file: File name that you created  
 
 ## Join/Leave chat or channel
 
 ```bash
-join ChatID ClientNumber [-p]
+python3 run.py sendtext ChatID ClientNumber private
 ```
 
 > ChatID: That chat or channel you want to join  
 > ClientNumber: That client you want to joins chat  
-> -p: If chat is private use this option. (Optional)
+> private: If chat is private use this option. if its public use public.  
 
 ```bash
-leave ChatID ClientNumber
+python3 run.py leave ChatID ClientNumber
 ```
 
 > ChatID: That chat or channel you want to leave.  
@@ -107,50 +74,44 @@ leave ChatID ClientNumber
 ## Report
 
 ```bash
-report ID Type [-c count]
+python3 run.py report target count type
 ```
 
-> ID: That username you want to report.  
-> Type: the report types are: port, spam, copyright, childabuse, violence and geoirrelevant.  
-> -c count: count of reports.
+> target: That username you want to report.  
+> count: count of reports.  
+> type: the report types are: port, spam, copyright, childabuse, violence and geoirrelevant.  
 
 ## Block/Unblock
 
 ```bash
-block ID Client_Number
+python3 run.py block ID ClientNumber
 ```
 
 > ID: That username you want to block.  
 > ClientNumber: That client you want to blocks someone.  
 
 ```bash
-unblock ID Client_Number
+python3 run.py unblock ID ClientNumber
 ```
 
 > ID: That username you want to unblock.  
 > ClientNumber: That client you want to unblocks someone.  
 
-## Delete account
-
-```bash
-deleteaccount client_num reason
-```
-
-> client_num: That client you want to delete.  
-> reason: The reason why you want to delete the account.  
-
 ## Forward
 
 ```bash
-forward from to -l loops
+python3 run.py forward from to count
 ```
 
 > from: That chat you want to forward messages from that.  
 > to: That chat you want to send messages.  
-> loops: count of loops.  
+> count: count of messages.  
 
 # Contribute
+
 Apply to participate in this project through pull requests or send a message to my ID in Telegram.
 
 # Donate
+
 Bitcoin: 1GKiThh6AaAj8Y1TEbwgC6cvrD82UyWDFk
+

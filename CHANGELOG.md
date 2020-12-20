@@ -4,6 +4,12 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.0] 2020-12-20
+
+### Changed
+
+- Rewrite whole of project.
+
 ## [1.8] 2020-12-07
 
 ### Added

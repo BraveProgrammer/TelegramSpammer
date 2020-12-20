@@ -3,5 +3,6 @@ Cython==0.29.21
 progress==1.5
 pyaes==1.6.1
 pyasn1==0.4.8
+PySocks==1.7.1
 rsa==4.6
 Telethon==1.17.5

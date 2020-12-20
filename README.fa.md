@@ -15,18 +15,21 @@ pip3 install -r requirements.txt
 python3 setup.py build_ext --inplace
 ```
 
-**نکته:** اگر با خطایی روبرو شدید نگران نباشید این کار برای این است که سرعت برنامه بالا برود. اگر با خطا مواجه شدید برنامه کار خواهد کرد اما با سرعت کمتر.
-
 بعد از نصب کتابخانه ها ابتدا باید در سایت [My Telegram](https://my.telegram.org/auth) وارد شوید و احراز هویت کنید.
 سپس وارد قسمت API Development شوید فیلد ها را پر کنید.
 
-سپس فایل **config.ini** را ایجاد کنید و مقادیر را جایگزین کنید:
+سپس با دستور `python3 run.py conf` میتوانید وارد تنظیمات برنامه شوید. بعد از بازکردن تنظیمات گزینه ها را شخصی سازی کنید:
 
 ```ini
 [auth]
 api_id = Your API ID
 api_hash = Your API Hash
 client_count = Your Accounts Count
+
+# پروکسی اختیاری است.
+[proxy]
+addr = Your Proxy Address
+port = Your Proxy Port
 
 [client0]
 phone = Your Phone Number
@@ -40,38 +43,7 @@ name = Name
 برای بروزرسانی تلگرام اسپمر اسکریپت `update.sh` را اجرا کنید.
 
 ```bash
-sh update.sh
-```
-
-# طرز استفاده
-
-وارد برنامه شوید.
-
-```bash
-python3 main.py
-```
-
-برنامه دستورات مختلفی دارد.
-
-*دستورات ساده:*
-
-| دستور | توضیحات                          |
-| ------- | ------------------------------ |
-| exit    | خروج از برنامه                 |
-| clear   | پاک کردن صفحه                  |
-| history | نمایش دستورات استفاده شده      |
-| banner  | نمایش بنر                      |
-| help    | نمایش help برای دستور وارد شده |
-
-**نکته**: میتوانید از تب برای کامل کردن دستورات استفاده کنید  
-**نکته ۲**: برای کسب اطلاعات بیشتر درباره ی هر دستور از دستور زیر استفاده کنید:
-
-```bash
-help دستور
-```
-یا
-```bash
-دستور -h
+bash update.sh
 ```
 
 ## ارسال پیام متنی
@@ -81,77 +53,70 @@ help دستور
 سپس در برنامه با استفاده از دستور زیر میتوانید پیام انبوه ارسال کنید.
 
 ```bash
-sendtext -f file [-c count] target
+python3 run.py sendtext target count file
 ```
 
 > target: تارگت  
-> -f file: فایلی که پیام ها را در ان نوشتید  
-> -c count: تعداد تکرار (پیام های درون فایل هرکدام حداقل یک بار ارسال خواهند شد)  
+> count: تعداد پیام هایی که میخواهید ارسال  
+> file: فایلی که پیام ها را در ان نوشتید  
 
 ## عضو/لفت دادن از گروه یا کانال
 
 ```bash
-join ChatID ClientNumber [-p]
+python3 run.py join ChatID ClientNumber private
 ```
 
 > ChatID: آیدی چتی که میخواهید در آن عضو شوید.  
 > ClientNumber: شماره اکانتی که میخواهید با آن عضو شوید.  
-> -p: اگر چت خصوصی است از این گزینه استفاده کنید (اختیاری)
+> private: اگر چت خصوصی است از این گزینه استفاده کنید (اختیاری) اگر عمومی باشد چیزی غیر از این بنویسید مثلا public.  
 
 ```bash
-leave ChatID ClientNumber
+python3 run.py leave ChatID ClientNumber
 ```
 
 > ChatID: آیدی چتی که میخواهید از‌ آن لفت بدهید.  
-> ClientNumber: شماره اکانتی که میخواهید با آن لفت بدهید.
+> ClientNumber: شماره اکانتی که میخواهید با آن لفت بدهید.  
 
 ## ریپورت
 
 ```bash
-report ID Type [-c count]
+python3 run.py report target count type
 ```
 
-> ID: یوزرنیمی که قصد ریپورت آن را دارید.  
-> Type: انواع ریپورت عبارتند از: port, spam, copyright, childabuse, violence and geoirrelevant.  
-> -c count: تعداد ریپورت.
+> target: یوزرنیمی که قصد ریپورت آن را دارید.  
+> count: تعداد ریپورت.  
+> type: انواع ریپورت عبارتند از: port, spam, copyright, childabuse, violence and geoirrelevant.  
 
 ## بلاک/آنبلاک
 
 ```bash
-block ID Client_Number
+python3 run.py block ID ClientNumber
 ```
 
 > ID: آیدی کسی که میخواهید بلاک کنید.  
-> ClientNumber: شماره اکانتی که میخواهید با آن بلاک کنید.
+> ClientNumber: شماره اکانتی که میخواهید با آن بلاک کنید.  
 
 ```bash
-unblock ID Client_Number
+python3 run.py unblock ID ClientNumber
 ```
 
 > ID: آیدی کسی که میخواهید آنبلاک کنید.  
-> ClientNumber: شماره اکانتی که میخواهید با آن آنبلاک کنید.  
-
-## دلیت اکانت
-
-```bash
-deleteaccount client_num reason
-```
-
-> client_num: شماره اکانتی که میخواهید آن را دلیت کنید.  
-> reason: دلیلی که بخاطر آن میخواهید اکانت را دلیت کنید.  
+> ClientNumber: شماره اکانتی که میخواهید با آن آنبلاک کنید.   
 
 ## فوروارد
 
 ```bash
-forward from to -l loops
+python3 run.py forward from to count
 ```
 
 > from: چتی که میخواهید پیام ها را از آن فوروارد کنید.  
 > to: چتی که میخواهید پیام ها را به آن ارسال کنید.  
-> loops: تعداد تکرار.  
+> count: تعداد پیام ها.  
 
 # مشارکت
+
 برای مشارکت در این پروژه از طرق pull requests اقدام کنید یا به [آیدی](https://t.me/BraveProgrammer) من در تلگرام پیام بدهید.
 
 # حمایت مالی
+
 Bitcoin: 1GKiThh6AaAj8Y1TEbwgC6cvrD82UyWDFk
