@@ -68,7 +68,7 @@ python3 run.py join ChatID ClientNumber private
 
 > ChatID: آیدی چتی که میخواهید در آن عضو شوید.  
 > ClientNumber: شماره اکانتی که میخواهید با آن عضو شوید.  
-> private: اگر چت خصوصی است از این گزینه استفاده کنید (اختیاری) اگر عمومی باشد چیزی غیر از این بنویسید مثلا public.  
+> private: اگر چت خصوصی باشد از این گزینه استفاده کنید در غیر اینصورت از public استفاده کنید.  
 
 ```bash
 python3 run.py leave ChatID ClientNumber

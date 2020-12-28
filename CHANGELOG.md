@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.0.3] 2020-12-28
+
+### Changed
+
+- Fix problem with private chats
+- Fix bugs
+
 ## [2.0.2] 2020-12-20
 
 ### Changed
