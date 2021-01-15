@@ -4,6 +4,13 @@ All notable changes to this project will be documented in this file.
 
 ## [Unreleased]
 
+## [2.0.4] 2021-01-15
+
+### Changed
+
+- Bitcoin Wallet Address
+
+
 ## [2.0.3] 2020-12-28
 
 ### Changed

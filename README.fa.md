@@ -119,4 +119,4 @@ python3 run.py forward from to count
 
 # حمایت مالی
 
-Bitcoin: 1GKiThh6AaAj8Y1TEbwgC6cvrD82UyWDFk
+Bitcoin: 1MfNQeCcX7W9Uu6jy2HagCz4SH2LhwU3Ki

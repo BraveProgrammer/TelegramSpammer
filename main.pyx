@@ -1,10 +1,13 @@
 #!/bin/python3
 
 import configparser, os, signal, socks, sys, time
+from telethon.sync import TelegramClient, events
 from telethon.tl import functions, types
-from telethon.sync import TelegramClient
 from progress.spinner import Spinner
+from datetime import datetime
 from progress.bar import Bar
+
+if sys.argv[1] == "conf": os.system(f"vim {conf_file}"); exit()
 
 cdef str FORE_RED = "\u001b[31m"
 cdef str FORE_GREEN = "\u001b[32m"
@@ -20,14 +23,12 @@ cdef str STYLE_UNDERLINE = "\u001b[4m"
 banner = f"\n{FORE_GREEN}  ______     __                             \n /_  __/__  / /__  ____ __________ _____ ___            \n  / / / _ \/ / _ \/ __ `/ ___/ __ `/ __ `__ \           \n / / /  __/ /  __/ /_/ / /  / /_/ / / / / / /           \n/_/  \___/_/\___/\__, /_/   \__,_/_/ /_/ /_/            \n        / ___/__/____/__ _____ ___  ____ ___  ___  _____\n        \__ \/ __ \/ __ `/ __ `__ \/ __ `__ \/ _ \/ ___/\n       ___/ / /_/ / /_/ / / / / / / / / / / /  __/ /    \n      /____/ .___/\__,_/_/ /_/ /_/_/ /_/ /_/\___/_/     \n          /_/                                           {FORE_WHITE}\n\n{BACK_CYAN}=========== Author: @BraveProgrammer ==========={RESET}\n{BACK_RED}      I'm Not Responsible For your Actions      {RESET}"
 cdef str conf_file = os.path.expanduser("~/.tlsprc")
 
-if sys.argv[1] == "conf": os.system(f"vim {conf_file}"); exit()
-
-config = configparser.ConfigParser()
+cdef object config = configparser.ConfigParser()
 config.read(conf_file)
-api_id = int(config["auth"]["api_id"])
-api_hash = config["auth"]["api_hash"]
-client_count = int(config["auth"]["client_count"])
-clients = []
+cdef int api_id = int(config["auth"]["api_id"])
+cdef str api_hash = config["auth"]["api_hash"]
+cdef int client_count = int(config["auth"]["client_count"])
+cdef list clients = []
 
 try:
 	proxy_addr = config["proxy"]["addr"]
@@ -39,10 +40,9 @@ print(banner)
 
 for i in range(client_count):
 	print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Starting Client {i} .....")
-	exec(f"""if has_proxy: client{i} = TelegramClient(config['client{i}']['name'], api_id, api_hash, proxy=(socks.SOCKS5, proxy_addr, proxy_port))
-else: client{i} = TelegramClient(config['client{i}']['name'], api_id, api_hash)
-client{i}.start(config['client{i}']['phone'])
-clients.append(client{i})""")
+	if has_proxy: clients.append(TelegramClient(config[f'client{i}']['name'], api_id, api_hash, proxy=(socks.SOCKS5, proxy_addr, proxy_port)))
+	else: clients.append(TelegramClient(config[f'client{i}']['name'], api_id, api_hash))
+	clients[i].start(config[f'client{i}']['phone'])
 	print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Client {i} Started.")
 
 cdef int sendtext(target, count, file):
@@ -114,7 +114,7 @@ cdef int forward(_from, target, count):
 	except KeyboardInterrupt:
 		print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Time: {time.time() - t}")
 		print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}Interrupted.{RESET}")
-	#except: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}Can't forward this message.{RESET}")
+	except: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}Can't forward this message.{RESET}")
 	else:
 		print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Time: {time.time() - t}")
 		print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Done.{RESET}")
@@ -149,14 +149,42 @@ cdef int unblock(id, client_num):
 	except: print(f"\n{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] {FORE_RED}You can't unblock this user.{RESET}")
 	else: print(f"{FORE_GREEN}[{FORE_WHITE}+{FORE_GREEN}] Done.{RESET}")
 
-if sys.argv[1] == "sendtext": sendtext(sys.argv[2], int(sys.argv[3]), sys.argv[4])
-elif sys.argv[1] == "report": report(sys.argv[2], int(sys.argv[3]), sys.argv[4])
-elif sys.argv[1] == "forward": forward(sys.argv[2], sys.argv[3], int(sys.argv[4]))
+if sys.argv[1] == "sendtext":
+	try: sendtext(sys.argv[2], int(sys.argv[3]), sys.argv[4])
+	except IndexError: print(f"{FORE_RED}sendtext <id> <count> <file>{RESET}")
+elif sys.argv[1] == "report":
+	try: report(sys.argv[2], int(sys.argv[3]), sys.argv[4])
+	except IndexError: print(f"{FORE_RED}report <id> <count> <type>{RESET}")
+elif sys.argv[1] == "forward":
+	try: forward(sys.argv[2], sys.argv[3], int(sys.argv[4]))
+	except IndexError: print(f"{FORE_RED}forward <from> <target> <count>{RESET}")
 elif sys.argv[1] == "join":
-	if sys.argv[4] == "private": state = True
-	elif sys.argv[4] == "public": state = False
-	join(sys.argv[2], int(sys.argv[3]), state)
-elif sys.argv[1] == "leave": leave(sys.argv[2], int(sys.argv[3]))
-elif sys.argv[1] == "block": block(sys.argv[2], int(sys.argv[3]))
-elif sys.argv[1] == "unblock": unblock(sys.argv[2], int(sys.argv[3]))
+	try:
+		if sys.argv[4] == "private": state = True
+		elif sys.argv[4] == "public": state = False
+		join(sys.argv[2], int(sys.argv[3]), state)
+	except IndexError: print(f"{FORE_RED}join <id> <client_number> <private|public>{RESET}")
+elif sys.argv[1] == "leave":
+	try: leave(sys.argv[2], int(sys.argv[3]))
+	except IndexError: print(f"{FORE_RED}leave <id> <client_number>{RESET}")
+elif sys.argv[1] == "block":
+	try: block(sys.argv[2], int(sys.argv[3]))
+	except IndexError: print(f"{FORE_RED}block <id> <client_number>{RESET}")
+elif sys.argv[1] == "unblock":
+	try: unblock(sys.argv[2], int(sys.argv[3]))
+	except IndexError: print(f"{FORE_RED}unblock <id> <client_number>{RESET}")
+elif sys.argv[1] == "server":
+	try:
+		client = clients[int(sys.argv[2])]
+		now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+		print(f"\n{FORE_GREEN}[{FORE_WHITE}{now}{FORE_GREEN}] Server Started.{RESET}")
+		@client.on(events.NewMessage)
+		async def handler(event):
+			now = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
+			print(f"{FORE_GREEN}[{FORE_WHITE}{now}{FORE_GREEN}] New Message.{RESET}")
+			print(client.get_entity(event.event.from_id))
+			if event.message.message == "!ping":
+				await event.reply("pong!")
+		client.run_until_disconnected()
+	except IndexError: print(f"{FORE_RED}server <client_number>{RESET}")
 else: print("\nNothing to do!")

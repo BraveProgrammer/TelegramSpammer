@@ -113,5 +113,5 @@ Apply to participate in this project through pull requests or send a message to 
 
 # Donate
 
-Bitcoin: 1GKiThh6AaAj8Y1TEbwgC6cvrD82UyWDFk
+Bitcoin: 1MfNQeCcX7W9Uu6jy2HagCz4SH2LhwU3Ki
 
